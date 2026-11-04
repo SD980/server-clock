@@ -1,0 +1,11 @@
+# ===== 서버 시계 경기 목록 =====
+# 한 줄에 경기 하나:  차전, 장소, 경기 일시, 예매 시작, 메모, 예매 주소
+#   - 날짜는 2026-11-06 18:30 처럼 적습니다
+#   - 메모와 예매 주소는 비워도 됩니다
+#   - 줄 앞에 # 을 붙이면 그 줄은 무시합니다
+# 아래 URL=https://raw.githubusercontent.com/SD980/server-clock/main/games.txt 뒤에 온라인 목록 주소를 넣으면 [목록 업데이트]와 켤 때마다 그 주소에서 새 목록을 받아 옵니다.
+URL=https://raw.githubusercontent.com/SD980/server-clock/main/games.txt
+# --- 2026 KBO 한국시리즈 (삼성 라이온즈 vs KT 위즈) 대구 경기 ---
+3차전, 대구 삼성라이온즈파크, 2026-11-06 18:30, 2026-11-02 13:00, 매진, https://nol.yanolja.com/ticket/genre/sports/postseason
+4차전, 대구 삼성라이온즈파크, 2026-11-07 14:00, 2026-11-02 14:00, 매진, https://nol.yanolja.com/ticket/genre/sports/postseason
+5차전, 대구 삼성라이온즈파크, 2026-11-08 14:00, 2026-11-02 15:00, 매진, https://nol.yanolja.com/ticket/genre/sports/postseason
