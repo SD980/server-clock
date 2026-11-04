@@ -1,0 +1,34 @@
+name: build-exe
+on:
+  push:
+    paths:
+      - 'src/ServerClock.ps1'
+      - '.github/workflows/build-exe.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build EXE
+        shell: powershell
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module ps2exe -Scope CurrentUser -Force
+          $src = Get-Content -Raw -Encoding UTF8 src\ServerClock.ps1
+          $utf8bom = New-Object System.Text.UTF8Encoding($true)
+          [IO.File]::WriteAllText("$PWD\src\ServerClock_bom.ps1", $src, $utf8bom)
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Invoke-ps2exe -inputFile src\ServerClock_bom.ps1 -outputFile dist\ServerClock.exe -noConsole -STA -title 'ServerClock' -product 'ServerClock' -version '1.0.0.0'
+          if (-not (Test-Path dist\ServerClock.exe)) { throw 'build failed' }
+          Remove-Item src\ServerClock_bom.ps1
+      - name: Commit EXE
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/ServerClock.exe
+          git commit -m "Build ServerClock.exe [skip ci]" || echo "no change"
+          git push
